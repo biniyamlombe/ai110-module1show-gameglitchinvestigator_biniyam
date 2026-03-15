@@ -178,6 +178,7 @@ if submit:
                     f"The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
+        st.rerun()
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")
