@@ -6,6 +6,10 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 When the game first ran, it was completely glitched out with several intertwined logical errors. The layout falsely consumed an attempt immediately, the initial difficulty bounds were hardcoded backwards (so "Normal" had a larger range than "Hard"), and the "Higher / Lower" hint feedback gave mathematically backward advice. Additionally, out-of-bounds guesses unfairly consumed player attempts, and restarting the game failed to truly clear the user's timeline state. 
 
+The attempts variable was initialized at 1.
+An obscure intentional error block casted the secret number to a string and evaluated lexicographically.
+Difficulty Ranges and Hardcoded Messages
+
 ---
 
 ## 2. How did you use AI as a teammate?
