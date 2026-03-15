@@ -12,6 +12,8 @@ When the game first ran, it was completely glitched out with several intertwined
 
 I used an AI coding agent pair-programmer directly within my environment to actively debug the Streamlit application. A great example of a correct AI suggestion was identifying the `except TypeError` block deeply nested in the game mechanics that was unexpectedly type-casting the secret integers to strings and causing lexicographical string sorting failures (e.g. comparing `"10" < "5"`). However, the AI briefly struggled when writing the raw offline `pytest` scripts, as it wrote an assertion assuming the game should output `"Go LOWER!"` when mathematically trying to test a higher number, requiring us to dynamically go back and correct the test's strict equality checks.
 
+I used both Claude code and Antigravity to debug the game. Claude code was used to debug the game mechanics, while Antigravity was used to debug the UI.
+
 ---
 
 ## 3. Debugging and testing your fixes
