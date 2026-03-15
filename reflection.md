@@ -4,40 +4,28 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the secret number kept changing" or "the hints were backwards").
+When the game first ran, it was completely glitched out with several intertwined logical errors. The layout falsely consumed an attempt immediately, the initial difficulty bounds were hardcoded backwards (so "Normal" had a larger range than "Hard"), and the "Higher / Lower" hint feedback gave mathematically backward advice. Additionally, out-of-bounds guesses unfairly consumed player attempts, and restarting the game failed to truly clear the user's timeline state. 
 
 ---
 
 ## 2. How did you use AI as a teammate?
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-- Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-- Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+I used an AI coding agent pair-programmer directly within my environment to actively debug the Streamlit application. A great example of a correct AI suggestion was identifying the `except TypeError` block deeply nested in the game mechanics that was unexpectedly type-casting the secret integers to strings and causing lexicographical string sorting failures (e.g. comparing `"10" < "5"`). However, the AI briefly struggled when writing the raw offline `pytest` scripts, as it wrote an assertion assuming the game should output `"Go LOWER!"` when mathematically trying to test a higher number, requiring us to dynamically go back and correct the test's strict equality checks.
 
 ---
 
 ## 3. Debugging and testing your fixes
 
-- How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
-- Did AI help you design or understand any tests? How?
+We decided that a bug was definitively fixed not by just looking at the code, but by building and passing an offline unit test for each step before committing it individually. For example, `test_new_game_reset()` was a test suite that forcefully mutated the game state, clicked the "New Game" UI button, and mathematically asserted using `AppTest` that the session variables successfully flushed to `[]` and `0`. The AI heavily assisted in designing these test suites, as it drafted the complex `AppTest` fixture logic to interact with Streamlit DOM elements offline.
 
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
-- In your own words, explain why the secret number kept changing in the original app.
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
-- What change did you make that finally gave the game a stable secret number?
+The initial app kept dropping variables because Streamlit operates on an aggressive top-to-bottom re-execution model; fundamentally, every time a user triggers an input element on the front-end, Streamlit natively rebuilds the entire file from line 1 and destroys arbitrary local memory. I would explain Streamlit "reruns" to a friend like refreshing your web browser over and over—unless you explicitly save data in a special continuous "backpack" (`st.session_state`), it's gone upon refresh. We were able to firmly anchor the secret numbers and attempt limits by securely storing and mutating them only inside `st.session_state`, and directly injecting `st.rerun()` calls to flush the UI cleanly.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+One technical habit I definitely intend to retain is adopting the "step-by-step patch and offline test" pattern, separating changes into distinct focused commits rather than blindly applying 5 fixes at once. In the future when working with AI, I intend to always mentally verify its generated structural equality tests instead of blinding trusting that the AI math logic lines perfectly map to human expectations. Ultimately, this module shifted my paradigm of AI-generated code from being a "perfect finished product" to being a "powerful but fundamentally flawed first draft" that requires a human engineer to securely finalize.
