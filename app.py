@@ -11,7 +11,7 @@ def get_range_for_difficulty(difficulty: str):
     return 1, 50
 
 
-def parse_guess(raw: str):
+def parse_guess(raw: str, low, high: int):
     if raw is None:
         return False, None, "Enter a guess."
 
@@ -25,6 +25,10 @@ def parse_guess(raw: str):
             value = int(raw)
     except Exception:
         return False, None, "That is not a number."
+
+    if value < low or value > high:
+        return False, None, f"Out of bounds! Please guess between {low} and {high}."
+
 
     return True, value, None
 
@@ -151,9 +155,10 @@ if new_game:
 if submit and st.session_state.status == "playing":
     st.session_state.attempts += 1
 
-    ok, guess_int, err = parse_guess(raw_guess)
+    ok, guess_int, err = parse_guess(raw_guess, low, high)
 
     if not ok:
+        st.session_state.attempts -= 1
         st.session_state.history.append(raw_guess)
         st.session_state.feedback = {"type": "error", "text": err}
     else:
