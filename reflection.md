@@ -5,8 +5,18 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 ## 1. What was broken when you started?
 
 - What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the secret number kept changing" or "the hints were backwards").
+  When I first ran it, there were several confusing logical errors right away. The game layout immediately looked like I was already missing attempts, and the hint system actively gave me the wrong clues!
+
+- List at least two concrete bugs you noticed at the start:
+  1. **Attempt Counter Glitch**
+     - **Expected:** The game should give me a full set of attempts (e.g., 0 used) when I load the page.
+     - **Actual:** The `attempts` state started at 1, which immediately stole one of my chances to guess before I even started playing.
+  2. **Backwards Higher/Lower Hints**
+     - **Expected:** If I guess 50 and the secret is 30, the game should say "Too High, Go LOWER!".
+     - **Actual:** The code for `check_guess` actually returned "Too High, 📈 Go HIGHER!", purposefully giving mathematically wrong advice to the player.
+  3. **Reversed Difficulty Bounds**
+     - **Expected:** The "Hard" difficulty should have a wider range of numbers to guess from (like 1 to 100) compared to "Normal" (like 1 to 50).
+     - **Actual:** The outputs were swapped in the logic! "Normal" was set to 1 to 100, making it harder than "Hard" mode.
 
 ---
 
