@@ -34,9 +34,12 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
+  I verified fixes by running the Streamlit app locally and manually playing through the game to ensure the logic behaved correctly (e.g., the secret number didn't reset and hints were accurate). I also relied on the pytest suite passing successfully to confirm my changes didn't break core logic.
 - Describe at least one test you ran (manual or using pytest)  
   and what it showed you about your code.
+  I ran pytest on the game logic functions to test specific scenarios, such as guessing 50 when the secret is 30. This automated test immediately showed me that the strings returned by the high/low hint logic were reversed, isolating the bug to `logic_utils.py` without me needing to click through the game UI repeatedly.
 - Did AI help you design or understand any tests? How?
+  Yes, the AI helped explain how to use pytest assertions effectively. It also guided me on the importance of separating the core game logic from the Streamlit UI code so that the logic functions could be tested independently.
 
 ---
 
