@@ -58,5 +58,8 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
   - This could be a testing habit, a prompting strategy, or a way you used Git.
+  One strategy I want to reuse is separating the core logic of my application from the UI code. This made it much easier to write automated tests for the logic using pytest without worrying about Streamlit's interface.
 - What is one thing you would do differently next time you work with AI on a coding task?
+  Next time, I will double-check the raw source code of the logic earlier rather than blindly accepting the AI's first suggestion to change UI components when fixing a bug.
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+  This project taught me that AI makes mistakes and can even sound very confident when giving mathematically wrong advice. It changed my perspective from seeing AI as an infallible answer key to seeing it as a teammate whose work must be carefully reviewed and tested.
